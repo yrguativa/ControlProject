@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { AuthPayload, User, UserRole } from '../types';
+import type { AuthPayload } from '../types';
 
 interface AuthState {
   user: AuthPayload | null;
@@ -8,7 +8,7 @@ interface AuthState {
   login: (payload: AuthPayload) => void;
   logout: () => void;
   getToken: () => string | null;
-  hasRole: (...roles: UserRole[]) => boolean;
+  hasPermission: (...perms: string[]) => boolean;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -27,10 +27,11 @@ export const useAuthStore = create<AuthState>()(
 
       getToken: () => get().user?.accessToken ?? null,
 
-      hasRole: (...roles: UserRole[]) => {
+      hasPermission: (...perms: string[]) => {
         const user = get().user;
         if (!user) return false;
-        return roles.includes(user.role as UserRole);
+        if (user.role === 'ADMIN') return true;
+        return perms.every((p) => user.permissions?.includes(p));
       },
     }),
     {

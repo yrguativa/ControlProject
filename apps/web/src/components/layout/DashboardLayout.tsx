@@ -16,13 +16,15 @@ import {
   ChevronRight,
   ChevronDown,
   Vote,
+  Shield,
 } from 'lucide-react';
 
 const navItems = [
-  { to: '/', label: 'Dashboard', icon: LayoutDashboard, roles: ['ADMIN', 'OPERATOR', 'VIEWER'] },
-  { to: '/events', label: 'Eventos', icon: Calendar, roles: ['ADMIN', 'OPERATOR'] },
-  { to: '/devices', label: 'Dispositivos', icon: Monitor, roles: ['ADMIN', 'OPERATOR'] },
-  { to: '/users', label: 'Usuarios', icon: Users, roles: ['ADMIN'] },
+  { to: '/', label: 'Dashboard', icon: LayoutDashboard, permission: 'VIEW_DASHBOARD' },
+  { to: '/events', label: 'Eventos', icon: Calendar, permission: 'VIEW_EVENTS' },
+  { to: '/devices', label: 'Dispositivos', icon: Monitor, permission: 'VIEW_DEVICES' },
+  { to: '/users', label: 'Usuarios', icon: Users, permission: 'VIEW_USERS' },
+  { to: '/roles', label: 'Roles', icon: Shield, permission: 'MANAGE_ROLES' },
 ];
 
 const roleLabels: Record<string, string> = {
@@ -36,10 +38,11 @@ const routeLabels: Record<string, string> = {
   '/events': 'Eventos',
   '/devices': 'Dispositivos',
   '/users': 'Usuarios',
+  '/roles': 'Roles',
 };
 
 export default function DashboardLayout() {
-  const { user, logout, hasRole } = useAuthStore();
+  const { user, logout, hasPermission } = useAuthStore();
   const { sidebarOpen, toggleSidebar } = useAppStore();
   const navigate = useNavigate();
   const location = useLocation();
@@ -55,9 +58,11 @@ export default function DashboardLayout() {
     navigate('/login');
   };
 
-  const filteredNav = navItems.filter((item) => hasRole(...(item.roles as any[])));
+  const filteredNav = navItems.filter((item) => hasPermission(item.permission));
 
   const currentLabel = routeLabels[location.pathname] || 'Dashboard';
+
+  const roleDisplay = roleLabels[user?.role || ''] || user?.role || '';
 
   const sidebar = (
     <aside
@@ -116,7 +121,7 @@ export default function DashboardLayout() {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-white text-[15px] font-medium truncate">{user?.name}</p>
-              <p className="text-gray-500 text-xs truncate">{roleLabels[user?.role || ''] || user?.role}</p>
+              <p className="text-gray-500 text-xs truncate">{roleDisplay}</p>
             </div>
           </div>
         ) : (
@@ -210,7 +215,7 @@ export default function DashboardLayout() {
                 </div>
                 <div className="hidden sm:block text-left">
                   <p className="text-[15px] font-medium text-navy leading-tight">{user?.name}</p>
-                  <p className="text-xs text-gray-stone leading-tight">{roleLabels[user?.role || ''] || user?.role}</p>
+                  <p className="text-xs text-gray-stone leading-tight">{roleDisplay}</p>
                 </div>
                 <ChevronDown size={16} className="text-gray-stone hidden sm:block" />
               </button>

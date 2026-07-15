@@ -5,12 +5,14 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useAuthStore } from './stores/auth.store';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import PendingPage from './pages/PendingPage';
 import DashboardLayout from './components/layout/DashboardLayout';
 import DashboardPage from './pages/DashboardPage';
 import EventsPage from './pages/EventsPage';
 import DevicesPage from './pages/DevicesPage';
 import UsersPage from './pages/UsersPage';
 import VotingPage from './pages/VotingPage';
+import RolesPage from './pages/RolesPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,10 +23,11 @@ const queryClient = new QueryClient({
   },
 });
 
-function ProtectedRoute({ children, roles }: { children: React.ReactNode; roles?: string[] }) {
-  const { isAuthenticated, user } = useAuthStore();
+function ProtectedRoute({ children, permissions }: { children: React.ReactNode; permissions?: string[] }) {
+  const { isAuthenticated, user, hasPermission } = useAuthStore();
   if (!isAuthenticated) return <Navigate to="/login" replace />;
-  if (roles && !roles.includes(user?.role || '')) return <Navigate to="/" replace />;
+  if (user && !user.approved) return <PendingPage />;
+  if (permissions && !hasPermission(...permissions)) return <Navigate to="/" replace />;
   return <>{children}</>;
 }
 
@@ -49,7 +52,7 @@ export default function App() {
             <Route
               path="devices"
               element={
-                <ProtectedRoute roles={['ADMIN', 'OPERATOR']}>
+                <ProtectedRoute permissions={['VIEW_DEVICES']}>
                   <DevicesPage />
                 </ProtectedRoute>
               }
@@ -57,8 +60,16 @@ export default function App() {
             <Route
               path="users"
               element={
-                <ProtectedRoute roles={['ADMIN']}>
+                <ProtectedRoute permissions={['VIEW_USERS']}>
                   <UsersPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="roles"
+              element={
+                <ProtectedRoute permissions={['MANAGE_ROLES']}>
+                  <RolesPage />
                 </ProtectedRoute>
               }
             />

@@ -10,6 +10,8 @@ import { UsersModule } from './users/users.module';
 import { EventsModule } from './events/events.module';
 import { DevicesModule } from './devices/devices.module';
 import { VotingModule } from './voting/voting.module';
+import { PermissionsModule } from './permissions/permissions.module';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
   imports: [
@@ -29,6 +31,8 @@ import { VotingModule } from './voting/voting.module';
       path: 'api/graphql',
       context: ({ req }: { req: Request }) => ({ req }),
     }),
+    PermissionsModule,
+    RolesModule,
     AuthModule,
     UsersModule,
     EventsModule,

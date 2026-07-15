@@ -1,15 +1,25 @@
-export enum UserRole {
-  ADMIN = 'ADMIN',
-  OPERATOR = 'OPERATOR',
-  VIEWER = 'VIEWER',
+export interface Permission {
+  _id: string;
+  key: string;
+  label: string;
+  group: string;
+  description?: string;
+}
+
+export interface Role {
+  _id: string;
+  name: string;
+  isDefault: boolean;
+  permissions: Permission[];
 }
 
 export interface User {
   _id: string;
   name: string;
   email: string;
-  role: UserRole;
+  role: Role;
   active: boolean;
+  approved: boolean;
 }
 
 export interface AuthPayload {
@@ -19,6 +29,8 @@ export interface AuthPayload {
   email: string;
   name: string;
   role: string;
+  permissions: string[];
+  approved: boolean;
 }
 
 export interface Event {

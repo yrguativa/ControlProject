@@ -5,7 +5,9 @@ import { DevicesService } from './devices.service';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { UserRole } from '../users/schemas/user.schema';
+
+const ADMIN = 'ADMIN';
+const OPERATOR = 'OPERATOR';
 
 @Resolver(() => Device)
 export class DevicesResolver {
@@ -19,7 +21,7 @@ export class DevicesResolver {
 
   @Mutation(() => Device)
   @UseGuards(GqlAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN, UserRole.OPERATOR)
+  @Roles(ADMIN, OPERATOR)
   registerDevice(
     @Args('macAddress') macAddress: string,
     @Args('label', { nullable: true }) label?: string,
@@ -29,7 +31,7 @@ export class DevicesResolver {
 
   @Mutation(() => Device)
   @UseGuards(GqlAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN, UserRole.OPERATOR)
+  @Roles(ADMIN, OPERATOR)
   assignDevice(
     @Args('deviceId') deviceId: string,
     @Args('eventId') eventId: string,
@@ -39,7 +41,7 @@ export class DevicesResolver {
 
   @Mutation(() => Device)
   @UseGuards(GqlAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN)
+  @Roles(ADMIN)
   deactivateDevice(@Args('id') id: string): Promise<Device> {
     return this.devicesService.deactivate(id);
   }

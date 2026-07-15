@@ -6,8 +6,10 @@ import { CreateEventInput } from './dto/event.dto';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { UserRole } from '../users/schemas/user.schema';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
+
+const ADMIN = 'ADMIN';
+const OPERATOR = 'OPERATOR';
 
 @Resolver(() => Event)
 export class EventsResolver {
@@ -27,7 +29,7 @@ export class EventsResolver {
 
   @Mutation(() => Event)
   @UseGuards(GqlAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN, UserRole.OPERATOR)
+  @Roles(ADMIN, OPERATOR)
   createEvent(
     @Args('input') input: CreateEventInput,
     @CurrentUser('_id') userId: string,
@@ -37,14 +39,14 @@ export class EventsResolver {
 
   @Mutation(() => Event)
   @UseGuards(GqlAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN, UserRole.OPERATOR)
+  @Roles(ADMIN, OPERATOR)
   activateEvent(@Args('id') id: string): Promise<Event> {
     return this.eventsService.activate(id);
   }
 
   @Mutation(() => Event)
   @UseGuards(GqlAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN, UserRole.OPERATOR)
+  @Roles(ADMIN, OPERATOR)
   endEvent(@Args('id') id: string): Promise<Event> {
     return this.eventsService.end(id);
   }

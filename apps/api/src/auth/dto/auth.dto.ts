@@ -1,7 +1,6 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { ObjectType as GqlObjType } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
 
-@GqlObjType()
+@ObjectType()
 export class AuthPayload {
   @Field()
   accessToken: string;
@@ -20,4 +19,10 @@ export class AuthPayload {
 
   @Field()
   role: string;
+
+  @Field(() => [String])
+  permissions: string[];
+
+  @Field()
+  approved: boolean;
 }

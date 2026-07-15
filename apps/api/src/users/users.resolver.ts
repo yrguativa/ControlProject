@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards, NotFoundException, ForbiddenException } from '@nestjs/common';
-import { User, UserRole } from './schemas/user.schema';
+import { User } from './schemas/user.schema';
 import { UsersService } from './users.service';
 import { CreateUserInput } from './dto/user.dto';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
@@ -8,13 +8,15 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 
+const ADMIN = 'ADMIN';
+
 @Resolver(() => User)
 export class UsersResolver {
   constructor(private usersService: UsersService) {}
 
   @Query(() => [User])
   @UseGuards(GqlAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN)
+  @Roles(ADMIN)
   users(): Promise<User[]> {
     return this.usersService.findAll();
   }
@@ -29,7 +31,7 @@ export class UsersResolver {
 
   @Mutation(() => User)
   @UseGuards(GqlAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN)
+  @Roles(ADMIN)
   createUser(
     @Args('input') input: CreateUserInput,
   ): Promise<User> {
@@ -38,17 +40,26 @@ export class UsersResolver {
 
   @Mutation(() => User)
   @UseGuards(GqlAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN)
+  @Roles(ADMIN)
   updateUserRole(
     @Args('id') id: string,
-    @Args('role', { type: () => UserRole }) role: UserRole,
+    @Args('roleId') roleId: string,
   ): Promise<User> {
-    return this.usersService.updateRole(id, role);
+    return this.usersService.updateRole(id, roleId);
   }
 
   @Mutation(() => User)
   @UseGuards(GqlAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN)
+  @Roles(ADMIN)
+  approveUser(
+    @Args('id') id: string,
+  ): Promise<User> {
+    return this.usersService.approve(id);
+  }
+
+  @Mutation(() => User)
+  @UseGuards(GqlAuthGuard, RolesGuard)
+  @Roles(ADMIN)
   async toggleUserActive(
     @CurrentUser() currentUser: User,
     @Args('id') id: string,

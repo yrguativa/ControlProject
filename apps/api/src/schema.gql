@@ -4,8 +4,10 @@
 
 type AuthPayload {
   accessToken: String!
+  approved: Boolean!
   email: String!
   name: String!
+  permissions: [String!]!
   refreshToken: String!
   role: String!
   userId: String!
@@ -19,11 +21,17 @@ input CreateEventInput {
   totalCoeficiente: Float!
 }
 
+input CreateRoleInput {
+  isDefault: Boolean
+  name: String!
+  permissionIds: [String!]
+}
+
 input CreateUserInput {
   email: String!
   name: String!
   password: String!
-  role: UserRole
+  roleId: String
 }
 
 """
@@ -67,11 +75,14 @@ input LoginInput {
 
 type Mutation {
   activateEvent(id: String!): Event!
+  approveUser(id: String!): User!
   assignDevice(deviceId: String!, eventId: String!): Device!
   castVote(deviceId: String!, eventId: String!, vote: VoteOption!): Vote!
   createEvent(input: CreateEventInput!): Event!
+  createRole(input: CreateRoleInput!): Role!
   createUser(input: CreateUserInput!): User!
   deactivateDevice(id: String!): Device!
+  deleteRole(id: String!): Role!
   endEvent(id: String!): Event!
   googleAuth(token: String!): AuthPayload!
   login(input: LoginInput!): AuthPayload!
@@ -79,7 +90,35 @@ type Mutation {
   register(input: CreateUserInput!): AuthPayload!
   registerDevice(label: String, macAddress: String!): Device!
   toggleUserActive(id: String!): User!
-  updateUserRole(id: String!, role: UserRole!): User!
+  updateRole(id: String!, input: UpdateRoleInput!): Role!
+  updateUserRole(id: String!, roleId: String!): User!
+}
+
+type Permission {
+  _id: ID!
+  description: String
+  group: String!
+  key: PermissionKey!
+  label: String!
+}
+
+enum PermissionKey {
+  CAST_VOTE
+  CREATE_DEVICE
+  CREATE_EVENT
+  CREATE_USER
+  DELETE_DEVICE
+  DELETE_EVENT
+  DELETE_USER
+  EDIT_DEVICE
+  EDIT_EVENT
+  EDIT_USER
+  MANAGE_ROLES
+  VIEW_DASHBOARD
+  VIEW_DEVICES
+  VIEW_EVENTS
+  VIEW_USERS
+  VIEW_VOTING
 }
 
 type Query {
@@ -88,22 +127,33 @@ type Query {
   eventResults(eventId: String!): EventResults!
   events: [Event!]!
   me: User!
+  permissions: [Permission!]!
+  role(id: String!): Role
+  roles: [Role!]!
   users: [User!]!
   votes(eventId: String!): [Vote!]!
+}
+
+type Role {
+  _id: ID!
+  isDefault: Boolean!
+  name: String!
+  permissions: [Permission!]!
+}
+
+input UpdateRoleInput {
+  isDefault: Boolean
+  name: String
+  permissionIds: [String!]
 }
 
 type User {
   _id: ID!
   active: Boolean!
+  approved: Boolean!
   email: String!
   name: String!
-  role: UserRole!
-}
-
-enum UserRole {
-  ADMIN
-  OPERATOR
-  VIEWER
+  role: Role
 }
 
 type Vote {

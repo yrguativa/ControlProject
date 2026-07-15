@@ -1,6 +1,6 @@
 {
   "name": "control-project",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "dev": "concurrently --names api,web --kill-others \"pnpm dev:api\" \"sleep 3 && open http://localhost:5173 && pnpm dev:web\"",

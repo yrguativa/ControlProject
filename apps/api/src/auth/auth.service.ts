@@ -24,7 +24,7 @@ export class AuthService {
   async login(input: LoginInput): Promise<AuthPayload> {
     const user = await this.usersService.validatePassword(input.email, input.password);
     if (!user) throw new UnauthorizedException('Invalid credentials');
-    if (!user.active) throw new UnauthorizedException('Tu cuenta está desactivada. Contacta al administrador.');
+    if (!user.active) throw new UnauthorizedException('Tu cuenta esta desactivada. Contacta al administrador.');
 
     return this.generateTokens(user);
   }
@@ -48,8 +48,27 @@ export class AuthService {
     }
   }
 
+  private extractPermissions(user: any): string[] {
+    const role = user.role;
+    if (!role) return [];
+
+    const perms = role.permissions;
+    if (!perms) return [];
+
+    return perms.map((p: any) => typeof p === 'string' ? p : p.key).filter(Boolean);
+  }
+
   private generateTokens(user: any): AuthPayload {
-    const payload = { sub: user._id, email: user.email, role: user.role };
+    const roleName = typeof user.role === 'string' ? user.role : user.role?.name;
+    const permissions = this.extractPermissions(user);
+
+    const payload = {
+      sub: user._id,
+      email: user.email,
+      role: roleName,
+      permissions,
+      approved: user.approved,
+    };
 
     const accessToken = this.jwtService.sign(payload, {
       expiresIn: '15m',
@@ -67,7 +86,9 @@ export class AuthService {
       userId: user._id,
       email: user.email,
       name: user.name,
-      role: user.role,
+      role: roleName,
+      permissions,
+      approved: user.approved,
     };
   }
 }

@@ -7,6 +7,8 @@ import { AuthResolver } from './auth.resolver';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { UsersModule } from '../users/users.module';
+import { RolesModule } from '../roles/roles.module';
+import { PermissionsModule } from '../permissions/permissions.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { UsersModule } from '../users/users.module';
       inject: [ConfigService],
     }),
     UsersModule,
+    RolesModule,
+    PermissionsModule,
   ],
   providers: [AuthService, AuthResolver, JwtStrategy, GoogleStrategy],
   exports: [AuthService],
