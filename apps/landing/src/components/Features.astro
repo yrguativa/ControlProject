@@ -1,0 +1,413 @@
+---
+const features = [
+  {
+    title: 'Sin dependencia de internet',
+    description: 'Los controles envian votos por radiofrecuencia 2.4GHz. Funciona en conjuntos sin cobertura, sotanos o zonas rurales.',
+    icon: 'wifi-off',
+  },
+  {
+    title: 'Resultados en tiempo real',
+    description: 'Porcentaje, quorum y coeficientes se actualizan al instante en el dashboard. Proyectable en pantalla grande.',
+    icon: 'realtime',
+  },
+  {
+    title: 'Voto secreto garantizado',
+    description: 'El sistema registra que el control voto, pero no almacena que opcion elegio. Cumple normativa de privacidad.',
+    icon: 'shield',
+  },
+  {
+    title: 'Anti duplicados',
+    description: 'Cada control solo puede emitir un voto por sesion. El servidor rechaza automaticamente intentos repetidos.',
+    icon: 'check-double',
+  },
+  {
+    title: 'Actas automaticas',
+    description: 'Genera el acta en PDF con votos, quorum, coeficientes y firmas. Sin errores de transcription manual.',
+    icon: 'file',
+  },
+  {
+    title: 'Arquitectura distribuida',
+    description: 'Multiples Raspberry Pi como gateways. Si uno falla, el resto sigue operando. Escalable a 1000+ controles.',
+    icon: 'network',
+  },
+];
+
+const prices = [
+  {
+    name: 'Basico',
+    apartments: '50 apartamentos',
+    price: '$600.000',
+    priceNote: 'COP por evento',
+    features: ['100 controles RF', 'Dashboard basico', 'Acta PDF', 'Soporte por email'],
+    popular: false,
+  },
+  {
+    name: 'Profesional',
+    apartments: '100 apartamentos',
+    price: '$1.200.000',
+    priceNote: 'COP por evento',
+    features: ['200 controles RF', 'Dashboard completo', 'Acta PDF + Excel', 'Soporte prioritario', 'Multi-asamblea'],
+    popular: true,
+  },
+  {
+    name: 'Enterprise',
+    apartments: '300+ apartamentos',
+    price: '$3.000.000',
+    priceNote: 'COP por evento',
+    features: ['500+ controles RF', 'Dashboard personalizado', 'Actas ilimitadas', 'Soporte 24/7', 'API GraphQL', 'Multi-asamblea'],
+    popular: false,
+  },
+];
+---
+
+<section id="hardware" class="features">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Hardware + Software</span>
+      <h2 class="section-title">Todo lo que necesitas</h2>
+      <p class="section-subtitle">Un sistema completo de votacion electronica, desde el control fisico hasta el acta final.</p>
+    </div>
+
+    <div class="features-grid">
+      {features.map((feature, i) => (
+        <div class={`feature-card reveal`} style={`transition-delay: ${i * 80}ms`}>
+          <div class="feature-icon">
+            {feature.icon === 'wifi-off' && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M2 2l20 20M8.5 16.5a5 5 0 0 1 7 0M12 20h.01"/>
+                <path d="M5.5 12.5a11 11 0 0 1 4.2-4.2M1.5 8.5a18 18 0 0 1 5.3-3.3"/>
+              </svg>
+            )}
+            {feature.icon === 'realtime' && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            )}
+            {feature.icon === 'shield' && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+            )}
+            {feature.icon === 'check-double' && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M18 6L7 17l-5-5M22 10L13 21"/>
+              </svg>
+            )}
+            {feature.icon === 'file' && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <path d="M14 2v6h6M9 15l2 2 4-4"/>
+              </svg>
+            )}
+            {feature.icon === 'network' && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="9" y="9" width="6" height="6" rx="1"/>
+                <path d="M5 3a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4M19 3a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4M5 17a2 2 0 0 0-2 2v0a2 2 0 0 0 2 2h4M19 17a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2h-4"/>
+              </svg>
+            )}
+          </div>
+          <h3 class="feature-title">{feature.title}</h3>
+          <p class="feature-description">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section id="precios" class="pricing">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Precios</span>
+      <h2 class="section-title" style="color: var(--color-white);">Simple y transparente</h2>
+      <p class="section-subtitle" style="color: var(--color-gray-stone);">Precio por evento. Sin suscripciones. Sin sorpresas.</p>
+    </div>
+
+    <div class="pricing-grid">
+      {prices.map((plan, i) => (
+        <div class={`pricing-card ${plan.popular ? 'pricing-card--popular' : ''} reveal`} style={`transition-delay: ${i * 120}ms`}>
+          {plan.popular && <div class="pricing-badge">Mas popular</div>}
+          <div class="pricing-header">
+            <h3 class="pricing-name">{plan.name}</h3>
+            <p class="pricing-apartments">{plan.apartments}</p>
+            <div class="pricing-amount">
+              <span class="pricing-price">{plan.price}</span>
+              <span class="pricing-note">{plan.priceNote}</span>
+            </div>
+          </div>
+          <ul class="pricing-features">
+            {plan.features.map((f) => (
+              <li>
+                <svg viewBox="0 0 16 16" fill="none" width="16" height="16">
+                  <path d="M3 8.5L6.5 12L13 4" stroke="var(--color-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <a href="#contacto" class={`pricing-cta ${plan.popular ? 'pricing-cta--primary' : ''}`}>
+            Solicitar cotizacion
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features {
+    padding: var(--space-5xl) 0;
+    background: var(--color-white);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-4xl);
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: var(--text-small);
+    font-weight: 600;
+    color: var(--color-green);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: var(--space-md);
+  }
+
+  .section-title {
+    font-size: var(--text-h1);
+    color: var(--color-navy);
+    margin-bottom: var(--space-md);
+  }
+
+  .section-subtitle {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    color: var(--color-gray-stone);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .feature-card {
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-gray-smoke);
+    transition: all var(--duration-standard) var(--ease-out);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--color-green);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-standard) var(--ease-out);
+  }
+
+  .feature-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .feature-card:hover {
+    border-color: transparent;
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-navy);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-lg);
+    color: var(--color-green);
+  }
+
+  .feature-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .feature-title {
+    font-size: var(--text-h3);
+    color: var(--color-navy);
+    margin-bottom: var(--space-sm);
+  }
+
+  .feature-description {
+    font-size: var(--text-small);
+    color: var(--color-gray-stone);
+    line-height: 1.6;
+  }
+
+  /* Pricing */
+  .pricing {
+    padding: var(--space-5xl) 0;
+    background: var(--color-navy);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pricing::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(0, 230, 118, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+    position: relative;
+  }
+
+  .pricing-card {
+    background: var(--color-navy-light);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+    transition: all var(--duration-standard) var(--ease-out);
+    position: relative;
+  }
+
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .pricing-card--popular {
+    border-color: var(--color-green);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .pricing-card--popular:hover {
+    box-shadow: var(--shadow-glow-strong);
+  }
+
+  .pricing-badge {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-green);
+    color: var(--color-navy);
+    font-size: var(--text-small);
+    font-weight: 600;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  }
+
+  .pricing-header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .pricing-name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--text-h3);
+    color: var(--color-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .pricing-apartments {
+    font-size: var(--text-small);
+    color: var(--color-gray-stone);
+    margin-bottom: var(--space-lg);
+  }
+
+  .pricing-amount {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-sm);
+  }
+
+  .pricing-price {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--color-white);
+  }
+
+  .pricing-note {
+    font-size: var(--text-small);
+    color: var(--color-gray-stone);
+  }
+
+  .pricing-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+    flex: 1;
+  }
+
+  .pricing-features li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--text-small);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .pricing-cta {
+    display: block;
+    text-align: center;
+    padding: 14px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: var(--text-small);
+    color: var(--color-white);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all var(--duration-standard) var(--ease-out);
+  }
+
+  .pricing-cta:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .pricing-cta--primary {
+    background: var(--color-green);
+    color: var(--color-navy);
+    border-color: var(--color-green);
+  }
+
+  .pricing-cta--primary:hover {
+    background: var(--color-green-dim);
+    border-color: var(--color-green-dim);
+    box-shadow: 0 4px 20px rgba(0, 230, 118, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    .features-grid,
+    .pricing-grid {
+      grid-template-columns: 1fr;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+  }
+</style>

@@ -1,0 +1,96 @@
+---
+---
+
+<nav class="nav">
+  <div class="nav-inner container">
+    <a href="/" class="nav-logo">
+      <svg class="nav-logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2.5"/>
+        <path d="M10 16.5L14 20.5L22 12.5" stroke="var(--color-green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>ControlProject</span>
+    </a>
+    <div class="nav-links">
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#hardware">Hardware</a>
+      <a href="#precios">Precios</a>
+      <a href="#contacto" class="nav-cta">Contactar</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: var(--nav-height);
+    background: rgba(10, 22, 40, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    animation: slideDown 600ms var(--ease-dramatic) both;
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--color-white);
+  }
+
+  .nav-logo-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  .nav-links a {
+    font-size: var(--text-small);
+    font-weight: 500;
+    color: var(--color-gray-stone);
+    transition: color var(--duration-micro) var(--ease-out);
+  }
+
+  .nav-links a:hover {
+    color: var(--color-white);
+  }
+
+  .nav-cta {
+    background: var(--color-green);
+    color: var(--color-navy) !important;
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-full);
+    font-weight: 600 !important;
+    transition: transform var(--duration-micro) var(--ease-out),
+                box-shadow var(--duration-standard) var(--ease-out) !important;
+  }
+
+  .nav-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(0, 230, 118, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    .nav-links a:not(.nav-cta) {
+      display: none;
+    }
+  }
+</style>

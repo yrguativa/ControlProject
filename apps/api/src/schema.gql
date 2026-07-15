@@ -1,0 +1,126 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AuthPayload {
+  accessToken: String!
+  email: String!
+  name: String!
+  refreshToken: String!
+  role: String!
+  userId: String!
+}
+
+input CreateEventInput {
+  description: String
+  location: String!
+  name: String!
+  startTime: String!
+  totalCoeficiente: Float!
+}
+
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String!
+  role: UserRole
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Device {
+  _id: ID!
+  active: Boolean!
+  assignedEvent: String
+  batteryLevel: Float!
+  label: String
+  macAddress: String!
+}
+
+type Event {
+  _id: ID!
+  active: Boolean!
+  createdBy: String!
+  description: String
+  endTime: DateTime
+  location: String!
+  name: String!
+  startTime: DateTime!
+  totalCoeficiente: Float!
+}
+
+type EventResults {
+  eventId: String!
+  quorum: Float!
+  results: [VoteResult!]!
+  totalVoters: Float!
+  totalVotes: Float!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  activateEvent(id: String!): Event!
+  assignDevice(deviceId: String!, eventId: String!): Device!
+  castVote(deviceId: String!, eventId: String!, vote: VoteOption!): Vote!
+  createEvent(input: CreateEventInput!): Event!
+  deactivateDevice(id: String!): Device!
+  endEvent(id: String!): Event!
+  googleAuth(token: String!): AuthPayload!
+  login(input: LoginInput!): AuthPayload!
+  refreshToken(token: String!): AuthPayload!
+  register(input: CreateUserInput!): AuthPayload!
+  registerDevice(label: String, macAddress: String!): Device!
+  updateUserRole(id: String!, role: UserRole!): User!
+}
+
+type Query {
+  devices: [Device!]!
+  event(id: String!): Event!
+  eventResults(eventId: String!): EventResults!
+  events: [Event!]!
+  me: User!
+  users: [User!]!
+  votes(eventId: String!): [Vote!]!
+}
+
+type User {
+  _id: ID!
+  active: Boolean!
+  email: String!
+  name: String!
+  role: UserRole!
+}
+
+enum UserRole {
+  ADMIN
+  OPERATOR
+  VIEWER
+}
+
+type Vote {
+  _id: ID!
+  deviceId: String!
+  eventId: String!
+  timestamp: DateTime!
+  vote: VoteOption!
+}
+
+enum VoteOption {
+  ABSTENCION
+  NO
+  SI
+}
+
+type VoteResult {
+  coeficiente: Float!
+  count: Float!
+  option: VoteOption!
+  percentage: Float!
+}

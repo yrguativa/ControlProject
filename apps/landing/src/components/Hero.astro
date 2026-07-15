@@ -1,0 +1,374 @@
+---
+---
+
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-glow-secondary"></div>
+  </div>
+  <div class="container hero-content">
+    <div class="hero-badge animate-fade-up">
+      <span class="hero-badge-dot"></span>
+      Ley 675 — Propiedad Horizontal en Colombia
+    </div>
+    <h1 class="hero-title animate-fade-up delay-1">
+      Votacion electronica<br/>
+      para <span class="hero-highlight">asambleas</span>
+    </h1>
+    <p class="hero-subtitle animate-fade-up delay-2">
+      Controles inalámbricos, resultados en tiempo real y actas automaticas.
+      La forma mas confiable de llevar el voto a tus asambleas de conjuntos residenciales.
+    </p>
+    <div class="hero-actions animate-fade-up delay-3">
+      <a href="#contacto" class="btn btn-primary">
+        Solicitar demo
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="#como-funciona" class="btn btn-ghost">
+        Ver como funciona
+      </a>
+    </div>
+    <div class="hero-stats animate-fade-up delay-4">
+      <div class="hero-stat">
+        <span class="hero-stat-number">&lt;200ms</span>
+        <span class="hero-stat-label">Latencia de voto</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-number">500+</span>
+        <span class="hero-stat-label">Controles por evento</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-number">100%</span>
+        <span class="hero-stat-label">Sin internet</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hardware illustration -->
+  <div class="hero-visual animate-scale delay-3">
+    <div class="hero-device">
+      <div class="device-body">
+        <div class="device-led"></div>
+        <div class="device-buttons">
+          <div class="device-btn device-btn-si">SI</div>
+          <div class="device-btn device-btn-no">NO</div>
+          <div class="device-btn device-btn-abs">ABS</div>
+        </div>
+        <div class="device-label">CP-001</div>
+      </div>
+      <div class="device-shadow"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-4xl);
+    background: var(--color-navy);
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black, transparent);
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 230, 118, 0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulseGlow 4s ease-in-out infinite;
+  }
+
+  .hero-glow-secondary {
+    position: absolute;
+    bottom: -10%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-xs) var(--space-md);
+    background: rgba(0, 230, 118, 0.08);
+    border: 1px solid rgba(0, 230, 118, 0.2);
+    border-radius: var(--radius-full);
+    font-size: var(--text-small);
+    font-weight: 500;
+    color: var(--color-green);
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero-badge-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--color-green);
+    border-radius: 50%;
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  .hero-title {
+    font-size: var(--text-hero);
+    color: var(--color-white);
+    margin-bottom: var(--space-lg);
+    max-width: 700px;
+  }
+
+  .hero-highlight {
+    color: var(--color-green);
+    position: relative;
+  }
+
+  .hero-highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--color-green);
+    border-radius: 2px;
+    opacity: 0.3;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--color-gray-stone);
+    max-width: 520px;
+    margin-bottom: var(--space-2xl);
+    line-height: 1.7;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-md);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 14px 28px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all var(--duration-standard) var(--ease-out);
+  }
+
+  .btn-primary {
+    background: var(--color-green);
+    color: var(--color-navy);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 230, 118, 0.3);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-white);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .btn-ghost:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  .hero-stat-number {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: var(--text-h2);
+    color: var(--color-white);
+  }
+
+  .hero-stat-label {
+    font-size: var(--text-small);
+    color: var(--color-gray-stone);
+  }
+
+  .hero-stat-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .hero-visual {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+
+  .hero-device {
+    position: relative;
+    animation: float 5s ease-in-out infinite;
+  }
+
+  .device-body {
+    width: 180px;
+    height: 300px;
+    background: linear-gradient(145deg, #1a2744, #0d1a2e);
+    border-radius: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .device-led {
+    width: 8px;
+    height: 8px;
+    background: var(--color-green);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--color-green);
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  .device-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .device-btn {
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    transition: transform var(--duration-micro) var(--ease-out);
+  }
+
+  .device-btn:hover {
+    transform: scale(1.05);
+  }
+
+  .device-btn-si {
+    background: rgba(0, 230, 118, 0.15);
+    color: var(--color-green);
+    border: 1px solid rgba(0, 230, 118, 0.3);
+  }
+
+  .device-btn-no {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--color-red);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+  }
+
+  .device-btn-abs {
+    background: rgba(255, 179, 0, 0.15);
+    color: var(--color-amber);
+    border: 1px solid rgba(255, 179, 0, 0.3);
+  }
+
+  .device-label {
+    font-family: var(--font-body);
+    font-size: var(--text-small);
+    color: var(--color-gray-stone);
+    letter-spacing: 0.1em;
+  }
+
+  .device-shadow {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 20px;
+    background: radial-gradient(ellipse, rgba(0, 230, 118, 0.15), transparent);
+    border-radius: 50%;
+    filter: blur(8px);
+  }
+
+  @media (max-width: 1024px) {
+    .hero-visual {
+      position: relative;
+      right: auto;
+      top: auto;
+      transform: none;
+      margin-top: var(--space-3xl);
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-stats {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-lg);
+    }
+
+    .hero-stat-divider {
+      width: 40px;
+      height: 1px;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+    }
+
+    .btn {
+      justify-content: center;
+    }
+  }
+</style>
