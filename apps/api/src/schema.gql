@@ -70,6 +70,7 @@ type Mutation {
   assignDevice(deviceId: String!, eventId: String!): Device!
   castVote(deviceId: String!, eventId: String!, vote: VoteOption!): Vote!
   createEvent(input: CreateEventInput!): Event!
+  createUser(input: CreateUserInput!): User!
   deactivateDevice(id: String!): Device!
   endEvent(id: String!): Event!
   googleAuth(token: String!): AuthPayload!
@@ -77,6 +78,7 @@ type Mutation {
   refreshToken(token: String!): AuthPayload!
   register(input: CreateUserInput!): AuthPayload!
   registerDevice(label: String, macAddress: String!): Device!
+  toggleUserActive(id: String!): User!
   updateUserRole(id: String!, role: UserRole!): User!
 }
 

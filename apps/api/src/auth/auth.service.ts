@@ -24,6 +24,7 @@ export class AuthService {
   async login(input: LoginInput): Promise<AuthPayload> {
     const user = await this.usersService.validatePassword(input.email, input.password);
     if (!user) throw new UnauthorizedException('Invalid credentials');
+    if (!user.active) throw new UnauthorizedException('Tu cuenta está desactivada. Contacta al administrador.');
 
     return this.generateTokens(user);
   }
